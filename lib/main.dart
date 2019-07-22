@@ -56,18 +56,19 @@ class _HomePageState extends State<HomePage> {
                           return SizedBox(
                             width: 100,
                             child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ChangeNotifierProvider<Item>(
-                                  builder: (_) => mainModel.items[index],
-                                  child: Consumer<Item>(
-                                    builder: (context, item, _) => ItemCard(
-                                      item: item,
-                                      color: randColor,
-                                      onTap: () => mainModel.showDetailed(
-                                          randColor, index),
-                                    ),
+                              padding: const EdgeInsets.all(8.0),
+                              child: ChangeNotifierProvider<Item>(
+                                builder: (_) => mainModel.items[index],
+                                child: Consumer<Item>(
+                                  builder: (context, item, _) => ItemCard(
+                                    item: item,
+                                    color: randColor,
+                                    onTap: () => mainModel.showDetailed(
+                                        randColor, index),
                                   ),
-                                )),
+                                ),
+                              ),
+                            ),
                           );
                         },
                       ),
@@ -82,10 +83,16 @@ class _HomePageState extends State<HomePage> {
                         : SizedBox(
                             width: 200,
                             height: 200,
-                            child: ItemCard(
-                              item: mainModel.items[mainModel.detailedIndex],
-                              color: mainModel.detailedColor,
-                              onTap: () => mainModel.increment(),
+                            child: ChangeNotifierProvider<Item>(
+                              builder: (_) =>
+                                  mainModel.items[mainModel.detailedIndex],
+                              child: Consumer<Item>(
+                                builder: (context, item, _) => ItemCard(
+                                  item: item,
+                                  color: mainModel.detailedColor,
+                                  onTap: () => mainModel.increment(),
+                                ),
+                              ),
                             ),
                           ),
               ),
